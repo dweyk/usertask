@@ -1,0 +1,7 @@
+﻿services:
+  usertaskmanagment:
+    image: usertaskmanagment
+    build:
+      context: .
+      dockerfile: UserTaskManagment/Dockerfile
+

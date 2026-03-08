@@ -1,0 +1,6 @@
+@UserTaskManagment_HostAddress = http://localhost:5043
+
+GET {{UserTaskManagment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
