@@ -1,0 +1,108 @@
+﻿version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: user_tasks_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: user_tasks_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d user_tasks_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+      
+  jaeger:
+    image: jaegertracing/all-in-one:1.57
+    container_name: user_tasks_jaeger
+    restart: unless-stopped
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - app_network
+    depends_on:
+      - postgres
+      
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: user_tasks_zookeeper
+    restart: unless-stopped
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    healthcheck:
+      test: ["CMD", "zookeeper-shell", "localhost:2181", "ls", "/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - app_network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: user_tasks_kafka
+    restart: unless-stopped
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server kafka:29092"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+      
+  kafka-init:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: user_tasks_kafka_init
+    depends_on:
+      kafka:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      "
+      sleep 5
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic user-task --partitions 1 --replication-factor 1
+      exit 0
+      "
+    networks:
+      - app_network
+    restart: "no"
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge
+    name: usertask_shared_network  # 👈 Важно: фиксированное имя сети

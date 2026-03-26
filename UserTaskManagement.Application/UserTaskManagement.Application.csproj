@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="FluentResults"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\UserTaskManagement.Domain\UserTaskManagement.Domain.csproj" />
+    </ItemGroup>
+</Project>

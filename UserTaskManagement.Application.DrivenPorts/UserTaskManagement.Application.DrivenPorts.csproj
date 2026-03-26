@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    
+    <ItemGroup>
+        <PackageReference Include="FluentResults"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\UserTaskManagement.Application\UserTaskManagement.Application.csproj" />
+      <ProjectReference Include="..\UserTaskManagement.Domain\UserTaskManagement.Domain.csproj" />
+    </ItemGroup>
+    
+</Project>

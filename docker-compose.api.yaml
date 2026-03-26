@@ -1,0 +1,28 @@
+﻿version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: user_tasks_api
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=user_tasks_db;Username=postgres;Password=postgres
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+      - OTEL_SERVICE_NAME=user-task-api
+      - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=docker
+      - Kafka__BootstrapServers=${KAFKA_BOOTSTRAP_SERVERS:-kafka:29092}
+      - Kafka__Topics__0=${KAFKA_TOPIC:-user-task}
+    ports:
+      - "8080:8080"
+      - "5000:5000"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    name: usertask_shared_network
+    external: true

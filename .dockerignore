@@ -21,5 +21,15 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+
+# Логи и временные файлы
+**/*.log
+**/temp/
+**/tmp/
+
+# Тесты (если есть)
+**/Tests/
+**/*.csproj.user
+
 LICENSE
 README.md

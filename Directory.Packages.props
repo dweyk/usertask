@@ -1,0 +1,46 @@
+﻿<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <EnablePackageVersionOverride>false</EnablePackageVersionOverride>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- infrastructure -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.24" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <!-- result and mediatr -->
+    <PackageVersion Include="FluentResults" Version="4.0.0" />
+    <PackageVersion Include="MediatR" Version="14.1.0" />
+    <!-- annotations -->
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.3.2" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.2" />
+    <!-- telemetry -->
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.12" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Process" Version="1.15.0-beta.1" />
+    <!-- kafka -->
+    <PackageVersion Include="Confluent.Kafka" Version="2.13.2" />
+    <!-- validation -->
+    <PackageVersion Include="FluentValidation" Version="11.11.0" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+    <!-- tests -->
+    <PackageVersion Include="Moq" Version="4.20.72" />
+    <PackageVersion Include="AutoFixture.Xunit2" Version="4.18.1" />
+    <PackageVersion Include="AutoFixture" Version="4.18.1" />
+    <PackageVersion Include="AutoFixture.AutoMoq" Version="4.18.1" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageVersion Include="FluentAssertions" Version="7.0.0" />
+  </ItemGroup>
+</Project>

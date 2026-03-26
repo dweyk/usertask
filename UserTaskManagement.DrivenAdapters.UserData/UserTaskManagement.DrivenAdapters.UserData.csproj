@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    
+    <ItemGroup>
+      <ProjectReference Include="..\UserTaskManagement.Application.DrivenPorts\UserTaskManagement.Application.DrivenPorts.csproj" />
+      <ProjectReference Include="..\UserTaskManagement.Client.UserData\UserTaskManagement.Client.UserData.csproj" />
+    </ItemGroup>
+
+</Project>

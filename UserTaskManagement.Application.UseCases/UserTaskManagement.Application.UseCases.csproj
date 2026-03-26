@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="FluentResults"/>
+        <PackageReference Include="MediatR" />
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\UserTaskManagement.Application\UserTaskManagement.Application.csproj" />
+      <ProjectReference Include="..\UserTaskManagement.Domain\UserTaskManagement.Domain.csproj" />
+      <ProjectReference Include="..\UserTaskManagement.DrivenAdapters.UserData\UserTaskManagement.DrivenAdapters.UserData.csproj" />
+    </ItemGroup>
+</Project>
